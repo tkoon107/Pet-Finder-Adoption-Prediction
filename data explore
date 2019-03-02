@@ -1,12 +1,41 @@
 import os
 import pandas as pd
+import plotly as py
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 
 os.chdir(r"D:\Project Data\Pet Finder")
-dataset = pd.read_csv(r"./train/train.csv").drop(axis=1, columns ="Description")
+train = pd.read_csv(r"./train/train.csv").drop(axis=1, columns ="Description")
+test = pd.read_csv(r"./test/test.csv").drop(axis=1, columns ="Description")
 
+train['dataset'] = 'train'
+test['dataset'] = 'test'
+
+full_data = pd.concat([train, test])
+
+full_data["Type"]
+
+full_data['Type_name'] = 'dog'
+dataset.loc[full_data['Type'] == 2, "Type_name"] = "cat"
 dataset.head(5)
 
-sns.countplot(data=dataset, x = dataset['Age'])
+%matplotlib qt
 
+#Number of animals
+sns.countplot(x='data', data=all_data, hue='Type');
+
+#Distribution of class label
+
+#Type
+sns.countplot(dataset['Type_name'])
+#Age
+sns.countplot(dataset['Age'])
+
+#Bread
+
+#Fee
+
+#PhotoAmt
+
+#Sterilized
