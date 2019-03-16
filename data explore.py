@@ -1,4 +1,4 @@
-import os
+  import os
 import pandas as pd
 import plotly as py
 import seaborn as sns
@@ -16,7 +16,7 @@ full_data = pd.concat([train, test])
 
 #full_data['Type_name'] = 'dog'
 #dataset.loc[full_data['Type'] == 2, "Type_name"] = "cat"
-full_data["Type"] = full_data["Type"].apply(lambda x: 'dog' if x == 1 else 'cat')
+#full_data["Type"] = full_data["Type"].apply(lambda x: 'dog' if x == 1 else 'cat')
 
 full_data.head()
 full_data.describe()
@@ -26,7 +26,7 @@ full_data.describe()
 
 pd.qcut(full_data['Age'], 5).unique()
 
-
+sns.set_palette(["#9b59b6", "#3498db", "#95a5a6", "#e74c3c", "#34495e", "#2ecc71"])
 
 '''
 Data dictionary
@@ -62,24 +62,35 @@ full_data['AdoptionSpeed'].
 
 #Data is compared against the class label in each case
 
+sns.pairplot(iris, hue='species', size=1.5);
+
 plt.subplot(1,3,1)
+
+%matplotlib inline
 type_plot = sns.countplot(data = full_data, x='Type', hue = 'AdoptionSpeed')
+type_plot.set_xticklabels(["Dog", "Cat"])
+age_plot =sns.relplot(data=full_data, x="Age", y='AdoptionSpeed')
 
-age_plot =sns.relplot(data=full_data, x="AdoptionSpeed", y='Age')
-
-fee_plot = sns.scatterplot(data=full_data, x="AdoptionSpeed", y='Fee')
-fee_plot
+  fee_plot = sns.scatterplot(data=full_data, x="Fee", y='AdoptionSpeed')
+full_data[['Fee', 'AdoptionSpeed']].groupby('AdoptionSpeed').mean()
 
 health_plot = sns.countplot(data=full_data, hue="AdoptionSpeed", x="Health")
 health_plot.set_xticklabels(["Health","Minor Injury","Serious Injury", "Not Specified"])
 
 ster_plot = sns.countplot(data=full_data, hue="AdoptionSpeed", x="Sterilized")
-ster_plot.set_xticklabels(["Yes","No","Maybe"])
+ster_plot.set_xticklabels(["Yes","No","Not Sure"])
 
-vaccinated = sns.countplot(data=full_data, hue="AdoptionSpeed", x="Vaccinated")
-ster.set_xticklabels(["Yes","No","Maybe"])
+vacc_plot = sns.countplot(data=full_data, hue="AdoptionSpeed", x="Vaccinated")
+vacc_plot.set_xticklabels(["Yes","No","Not Sure"])
+#comments: Quicker rate of adoptions for not vaccinated
 
-gender = sns.relplot(data=full_data, x="AdoptionSpeed", y='Gender')
+gender = sns.countplot(data=full_data, hue="AdoptionSpeed", x='Gender')
 gender_plot.set_xticklabels(["Male","Female","Not Specified"])
+#comments: Males typically adopted quicker
 
-photo_amt =
+#Both extreme classes 0 and 4 have around 3 photos, but class 4 the longest time before adoption has the least amount of photos per posting
+photo_amt = sns.barplot(x = full_data['AdoptionSpeed'], y = full_data['PhotoAmt'])
+
+#Name wordclouds
+
+#top breed rankings cats/dogs
